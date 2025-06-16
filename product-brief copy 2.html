@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LowBot DevKit | Plataforma de Robótica de Baixo Custo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Gerais e Variáveis de Cor */
+        :root {
+            --primary-color: #00aaff; /* Azul elétrico para destaques */
+            --background-color: #12121e; /* Fundo escuro quase preto */
+            --card-background: #1e1e2f; /* Cor dos cards e da tabela */
+            --text-color: #e0e0e0; /* Texto principal claro */
+            --header-color: #ffffff; /* Títulos em branco puro */
+            --border-color: #333344; /* Bordas sutis */
+            --shadow-color: rgba(0, 170, 255, 0.1); /* Sombra azulada */
+            --highlight-color: rgba(0, 170, 255, 0.1); /* Cor de fundo para a coluna do seu kit */
+        }
+
+        /* Animação de Fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 20px 0 30px 0;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--header-color);
+            font-size: 3em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--shadow-color);
+        }
+
+        header .slogan {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            font-weight: 300;
+        }
+
+        /* Estilo genérico para seções com efeito de card */
+        .card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px var(--shadow-color);
+        }
+
+        section h2 {
+            color: var(--header-color);
+            font-size: 2em;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin: 0 0 25px 0;
+        }
+
+        /* Seção de Introdução com Imagem */
+        .intro-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+        
+        .intro-image {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .intro-image img {
+            width: 100%;
+            border-radius: 8px;
+            background-color: #2a2a3a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* Seção de Destaques */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            background-color: #2a2a3a;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background-color: #333344;
+        }
+
+        .feature-item .icon {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            margin: 0 0 10px 0;
+            color: var(--header-color);
+            font-size: 1.2em;
+        }
+
+        .feature-item p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        /* Diagrama SVG e Imagens */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .diagram-container svg {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+        
+        .svg-box {
+            fill: var(--card-background);
+            stroke: var(--primary-color);
+            stroke-width: 1.5;
+        }
+        
+        .svg-box-main {
+             fill: var(--primary-color);
+        }
+
+        .svg-text {
+            font-family: 'Poppins', sans-serif;
+            fill: var(--text-color);
+            font-size: 10px;
+            text-anchor: middle;
+        }
+
+        .svg-text-main {
+            fill: var(--background-color);
+            font-weight: 600;
+        }
+        
+         .svg-text-title {
+            font-weight: 600;
+            font-size: 11px;
+            fill: var(--header-color);
+        }
+
+        .svg-line {
+            stroke: var(--border-color);
+            stroke-width: 1.5;
+        }
+
+        /* Tabelas */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            min-width: 150px;
+        }
+        
+        thead th {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background-color: #2a2a3a;
+        }
+        
+        tbody tr {
+            transition: background-color 0.3s ease;
+        }
+        
+        tbody tr:hover {
+            background-color: #252535;
+        }
+        
+        table td:first-child {
+            font-weight: 600;
+            color: var(--header-color);
+            text-align: left;
+        }
+        
+        .comparison-table td:first-child, .bom-table td:first-child {
+             background-color: #252535;
+        }
+        
+        .highlight-col {
+            background-color: var(--highlight-color);
+        }
+
+        .icon-yes, .icon-no, .icon-partial { font-size: 1.5em; }
+        .icon-yes { color: #28a745; }
+        .icon-no { color: #dc3545; }
+        .icon-partial { color: #ffc107; }
+
+        .cost-row td, tfoot td {
+            font-weight: 700;
+            font-size: 1.1em;
+            background-color: #2a2a3a;
+        }
+        .kinekit-cost { color: var(--primary-color); }
+
+        table a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        table a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 900px) {
+            .intro-section {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            header h1 { font-size: 2.2em; }
+            section h2 { font-size: 1.6em; }
+            th, td { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>LowBot Devkit</h1>
+            <p class="slogan">Acelere o desenvolvimento, do código ao movimento.</p>
+        </header>
+
+        <main>
+            <section class="card intro-section">
+                <div class="intro-text">
+                    <h2>Sua Plataforma All-in-One para Robótica</h2>
+                    <p>
+                        A <strong>LowBot Devkit</strong> é uma solução completa que integra os componentes mais cruciais para robótica móvel em uma única PCB. Diga adeus ao emaranhado de fios da protoboard e concentre-se no que realmente importa: criar robôs inteligentes e funcionais com algoritmos avançados.
+                    </p>
+                </div>
+                <div class="intro-image">
+                    <img src="https://raw.githubusercontent.com/PedroGilo12/CircuitosImpressos/refs/heads/main/img1.png" alt="Imagem do DevKit LowBot Devkit">
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2>Destaques do Kit</h2>
+                <div class="features-grid">
+                    <div class="feature-item"><div class="icon">🧠</div><h3>Controle e IoT</h3><p>MCU ESP32 com Wi-Fi e Bluetooth nativos para controle remoto e telemetria.</p></div>
+                    <div class="feature-item"><div class="icon">🚗</div><h3>Movimento Preciso</h3><p>Driver de motor duplo (TB6612FNG) para controle total de plataformas 2WD ou 4WD.</p></div>
+                    <div class="feature-item"><div class="icon">🧭</div><h3>Navegação Inercial</h3><p>IMU de 6 eixos (MPU-6050) para projetos de auto-equilíbrio e orientação.</p></div>
+                    <div class="feature-item"><div class="icon">🔋</div><h3>Gestão de Energia</h3><p>Monitoramento de tensão e corrente com INA219 para otimizar a autonomia.</p></div>
+                    <div class="feature-item"><div class="icon">📦</div><h3>Armazenamento</h3><p>Slot para cartão microSD para armazenamento de arquivos e dados.</p></div>
+                    <div class="feature-item"><div class="icon">📡</div><h3>Comunicação Serial</h3><p>Comunicação com PC via UART (USB-C) para controle e monitoramento remoto.</p></div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Arquitetura do Sistema</h2>
+                <div class="diagram-container">
+                    <img src="https://raw.githubusercontent.com/PedroGilo12/CircuitosImpressos/main/img3.jpg" alt="Diagrama de blocos do LowBot Devkit" style="width: 100%; max-width: 800px; height: auto; border-radius: 8px; background-color: #2a2a3a;">
+                </div>
+            </section>
+            <section class="card" id="especificacoes">
+                <h2>Especificações Técnicas</h2>
+                <div class="table-container">
+                    <table>
+                        <tbody>
+                            <tr><td>MCU</td><td>ESP32-WROOM-32 (Dual Core, Wi-Fi, Bluetooth)</td></tr>
+                            <tr><td>Comunicação PC</td><td>CP2102 (USB-C para UART)</td></tr>
+                            <tr><td>Driver de Motor</td><td>TB6612FNG</td></tr>
+                            <tr><td>IMU</td><td>MPU-6050 (Giroscópio + Acelerômetro de 6 eixos)</td></tr>
+                            <tr><td>Monitor de Energia</td><td>INA219 (Tensão e Corrente)</td></tr>
+                            <tr><td>Armazenamento</td><td>Slot para Cartão MicroSD</td></tr>
+                            <tr><td>Feedback Visual</td><td>4x LEDs RGB Endereçáveis (WS2812B)</td></tr>
+                            <tr><td>Entradas do Usuário</td><td>2x Botões, 2x Trimpots (configuráveis)</td></tr>
+                            <tr><td>Conectores de Motor</td><td>4x PH2.0 2P (DC), 2x PH2.0 6P (Passo)</td></tr>
+                            <tr><td>Expansão</td><td>Barras de pinos para GPIOs, I2C e SPI</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section class="card" id="comparativo">
+                <h2>Análise Competitiva Balanceada</h2>
+                <div class="table-container">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th class="highlight-col">LowBot Devkit</th>
+                                <th>Robocore Vespa</th>
+                                <th>Waveshare General Driver</th>
+                                <th>Abordagem Modular (DIY)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MCU Principal</td>
+                                <td class="highlight-col">ESP32</td>
+                                <td>ESP32-S3</td>
+                                <td>ESP32</td>
+                                <td>ESP32</td>
+                            </tr>
+                            <tr>
+                                <td>IMU 6 Eixos Integrada</td>
+                                <td class="highlight-col"><span class="icon icon-yes">✅</span><br>Sim</td>
+                                <td><span class="icon icon-yes">✅</span><br>Sim</td>
+                                <td><span class="icon icon-yes">✅</span><br>Sim</td>
+                                <td><span class="icon icon-partial">⚠️</span><br>Módulo Externo</td>
+                            </tr>
+                            <tr>
+                                <td>Monitor de Energia Preciso</td>
+                                <td class="highlight-col"><span class="icon icon-yes">✅</span><br>Sim (INA219)</td>
+                                <td><span class="icon icon-no">❌</span><br>Não (Apenas Tensão)</td>
+                                <td><span class="icon icon-yes">✅</span><br>Sim (INA226)</td>
+                                <td><span class="icon icon-partial">⚠️</span><br>Módulo Externo</td>
+                            </tr>
+                             <tr>
+                                <td>Armazenamento (MicroSD)</td>
+                                <td class="highlight-col"><span class="icon icon-yes">✅</span><br>Sim</td>
+                                <td><span class="icon icon-no">❌</span><br>Não</td>
+                                <td><span class="icon icon-yes">✅</span><br>Sim</td>
+                                <td><span class="icon icon-partial">⚠️</span><br>Módulo Externo</td>
+                            </tr>
+                             <tr>
+                                <td>Conectores para Motores de Passo</td>
+                                <td class="highlight-col"><span class="icon icon-yes">✅</span><br>Sim</td>
+                                <td><span class="icon icon-no">❌</span><br>Não</td>
+                                <td><span class="icon icon-partial">⚠️</span><br>Parcial (Headers)</td>
+                                <td><span class="icon icon-no">❌</span><br>Não</td>
+                            </tr>
+                             <tr>
+                                <td>Ecossistema Nacional (Brasil)</td>
+                                <td class="highlight-col"><span class="icon icon-partial">⚠️</span><br>Em crescimento</td>
+                                <td><span class="icon icon-yes">✅</span><br>Excelente</td>
+                                <td><span class="icon icon-no">❌</span><br>Não</td>
+                                <td><span class="icon icon-no">❌</span><br>Não</td>
+                            </tr>
+                            <tr class="cost-row">
+                                <td>Preço de Venda (Estimado)</td>
+                                <td class="highlight-col kinekit-cost"><strong>$15.60 - $23.14</strong></td>
+                                <td>~$55</td>
+                                <td>~$40</td>
+                                <td>$26 - $38</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section class="card" id="custos">
+                <h2>Estimativa de Custo de Produção (BOM)</h2>
+                <p style="text-align: center; font-size: 0.9em; color: #aaa;">Os custos são estimativas para produção em volume e podem variar. Links de exemplo para a Mouser.</p>
+                <div class="table-container">
+                    <table class="bom-table">
+                        <thead>
+                            <tr>
+                                <th>Componente</th>
+                                <th>Custo (USD)</th>
+                                <th>Link (Exemplo)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>ESP32-WROOM-32</strong></td><td>$2.00 - $2.99</td><td><a href="https://br.mouser.com/ProductDetail/Espressif-Systems/ESP32-WROOM-32E-N8R2?qs=By6Nw2ByBD0mvGJSS3Ohlw%3D%3D4" target="_blank">Ver na Mouser</a></td></tr>
+                            <tr><td><strong>TB6612FNG</strong></td><td>$1.00 - $1.26</td><td><a href="https://br.mouser.com/ProductDetail/Toshiba/TB6612FNGC8EL?qs=rsevcuukUAy2UalRuv4E%2FQ%3D%3D" target="_blank">Ver na Mouser</a></td></tr>
+                            <tr><td><strong>IMU 6 Eixos</strong></td><td>$2.60 - $2.86</td><td><a href="https://br.mouser.com/ProductDetail/Bosch-Sensortec/BMI270?qs=u16ybLDytRYIj%252BjQEee88A%3D%3D" target="_blank">Ver na Mouser</a></td></tr>
+                            <tr><td><strong>INA219</strong></td><td>$2.23 - $2.81</td><td><a href="https://br.mouser.com/ProductDetail/Texas-Instruments/INA2191A3IYBJR?qs=Wj%2FVkw3K%252BMBnvyofZA%252BWVg%3D%3D" target="_blank">Ver na Mouser</a></td></tr>
+                            <tr><td><strong>DC-DC Buck</strong> (MP1584)</td><td>$0.70 - $1.20</td><td><a href="https://br.mouser.com/ProductDetail/Monolithic-Power-Systems-MPS/MP1584EN-LF-Z?qs=rC7bBWoQAAktQUA%2FYI26vA%3D%3D" target="_blank">Ver na Mouser</a></td></tr>
+                            <tr><td><strong>CP2102</strong></td><td>$1.82 - $2.27</td><td><a href="https://br.mouser.com/ProductDetail/Silicon-Labs/CP2102C-A01-GQFN24?qs=NeOn4crkEuv6vjRwpB53EA%3D%3D" target="_blank">Ver na Mouser</a></td></tr>
+                            <tr><td><strong>Conectores</strong></td><td>$0.75 - $1.25</td><td>-</td></tr>
+                            <tr><td><strong>PCB e Montagem</strong></td><td>$4.50 - $8.50</td><td>-</td></tr>
+                        </tbody>
+                          <tfoot>
+                            <tr class="cost-row">
+                                <td>Custo Total Estimado (por Unidade)</td>
+                                <td class="kinekit-cost" colspan="2">$15.60 - $23.14</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2025 [Nome da Sua Equipe]. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
